@@ -11,7 +11,7 @@ const Exp = ref('3200');
 
 onMounted(() => {
     //apiの処理
-    axios.get("api/home", username)
+    axios.get("api/home")
     .then(function(responce) {
         CharacterData.value = responce;
     })
