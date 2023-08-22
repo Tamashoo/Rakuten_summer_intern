@@ -15,7 +15,8 @@ type UserReduceResponse struct {
 }
 
 type AllReduce struct {
-	AllReduce int `json:"allreduce"`
+	AllReduceId int `json:"allreduceid" gorm:"primary_key"`
+	AllReduce   int `json:"allreduce"`
 }
 
 type AllReduceResponse struct {
