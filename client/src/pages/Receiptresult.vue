@@ -1,11 +1,21 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 const Router = useRouter();
 
 const result = ref(10);
+
+onMounted(() => {
+    axios.get(api/receiptresult)
+    .then((responce) => {
+        result.value = responce;
+    })
+    .catch(error => {
+        console.log(error);
+    })
+});
 
 </script>
 <template>
