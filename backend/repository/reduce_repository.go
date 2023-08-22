@@ -13,12 +13,25 @@ type IUserReduceRepository interface {
 	UpdateUserReduce(userReduce *model.UserReduce) error
 }
 
+type IAllReduceRepository interface {
+	GetAllReduce(allReduce *model.AllReduce) error
+	UpdateAllReduce(allReduce *model.AllReduce) error
+}
+
 type userReduceRepository struct {
+	db *gorm.DB
+}
+
+type allReduceRepository struct {
 	db *gorm.DB
 }
 
 func NewUserReduceRepository(db *gorm.DB) IUserReduceRepository {
 	return &userReduceRepository{db}
+}
+
+func NewAllReduceRepository(db *gorm.DB) IAllReduceRepository {
+	return &allReduceRepository{db}
 }
 
 func (urr *userReduceRepository) GetUserReduceByUsername(userReduce *model.UserReduce, username string) error {
@@ -43,6 +56,22 @@ func (urr *userReduceRepository) UpdateUserReduce(userReduce *model.UserReduce) 
 	}
 	if result.RowsAffected == 0 {
 		return errors.New("user not found")
+	}
+	return nil
+}
+
+func (arr *allReduceRepository) GetAllReduce(allReduce *model.AllReduce) error {
+	if err := arr.db.Where("allreduceid = ?", 1).First(allReduce).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (arr *allReduceRepository) UpdateAllReduce(allReduce *model.AllReduce) error {
+	// get 1 row 1 column
+	err := arr.db.Model(&allReduce).Where("allreduceid = ?", 1).Update("allreduce", allReduce.AllReduce)
+	if err != nil {
+		return err.Error
 	}
 	return nil
 }
