@@ -8,7 +8,7 @@ const Router = useRouter();
 const result = ref(10);
 
 onMounted(() => {
-    axios.get(api/receiptresult)
+    axios.get('api/receiptresult')
     .then((responce) => {
         result.value = responce;
     })
