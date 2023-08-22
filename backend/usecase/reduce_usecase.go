@@ -10,6 +10,7 @@ type IReduceUsecase interface {
 	AddUserScore(username string, exp int, reduceScore int) error
 	AddAllScore(allReduce int) error
 	GetUserReduceByUsername(username string) (int, error)
+	GetUserExpByUsername(username string) (int, error)
 	GetAllReduce() (int, error)
 }
 
@@ -60,6 +61,14 @@ func (ru *reduceUsecase) GetUserReduceByUsername(username string) (int, error) {
 		return 0, err
 	}
 	return userReduce.ReduceScore, nil
+}
+
+func (ru *reduceUsecase) GetUserExpByUsername(username string) (int, error) {
+	userReduce := model.UserReduce{}
+	if err := ru.urr.GetUserReduceByUsername(&userReduce, username); err != nil {
+		return 0, err
+	}
+	return userReduce.Exp, nil
 }
 
 func (ru *reduceUsecase) GetAllReduce() (int, error) {
