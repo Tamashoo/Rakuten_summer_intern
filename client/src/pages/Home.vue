@@ -1,12 +1,24 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import router from '../router';
 import { useRouter } from 'vue-router';
+import  axios  from 'axios';
 
 //ダミーデータ
-const Character = ref('');
+const Character = ref('https://r.r10s.jp/evt/event/okaimonopanda/common/download/wallpaper_201501.png');
 const Level = ref('3');
 const Exp = ref('3200');
+
+onMounted(() => {
+    //apiの処理
+    axios.get("api/home", username)
+    .then(function(responce) {
+        CharacterData.value = responce;
+    })
+    .catch(error => {
+        console.log("faild", error);
+    })
+});
 
 const Router = useRouter();
 
@@ -28,7 +40,7 @@ const ClickedMenu = (targetIndex) => {
     <h1>HOME</h1>
     <p>{{ 'Lv. ' + Level }}</p>
     <p>{{ 'Exp. ' + Exp }}</p>
-    <img :src="Character" />
+    <img :src="Character" class="Image" />
 
     <button v-if="OpenMenuFlg" class="menubtn" @click="OpenMenuFlg = !OpenMenuFlg">X</button>
     <button v-else class="menubtn" @click="OpenMenuFlg = !OpenMenuFlg">menu</button>
@@ -48,5 +60,10 @@ const ClickedMenu = (targetIndex) => {
     position: absolute;
     bottom: 40px;
     right: 20px;
+}
+.Image{
+    position: absolute;
+    width: 300px;
+    height: 300px;
 }
 </style>
