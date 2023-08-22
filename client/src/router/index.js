@@ -11,7 +11,7 @@ import History from '/src/pages/History.vue';
 
 const routes = [
     {
-      path: '/Signup',
+      path: '/signup',
       name: 'Signup',
       component: Signup,
     },
