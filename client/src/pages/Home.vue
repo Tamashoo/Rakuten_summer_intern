@@ -4,7 +4,7 @@ import router from '../router';
 import { useRouter } from 'vue-router';
 
 //ダミーデータ
-const Character = ref('https://1.bp.blogspot.com/-vsrjLB8Wyng/YEGP_R749_I/AAAAAAABdck/-khfythfWqU5wb6X4FzfzeaJVhIztvByACNcBGAsYHQ/s896/buranko_boy_sad.png');
+const Character = ref('');
 const Level = ref('3');
 const Exp = ref('3200');
 
