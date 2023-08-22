@@ -7,7 +7,7 @@ import (
 
 type IReceiptUsecase interface {
 	CreateReceipt(receipt model.Receipt) error
-	GetCreateReceiptResult(receipt model.Receipt) (model.ReceiptResultResponse, error)
+	GetCreateReceiptResult(username string) (model.ReceiptResultResponse, error)
 	GetHistoryList(username string) (model.HistoryListResponse, error)
 }
 
@@ -26,9 +26,9 @@ func (ru *receiptUsecase) CreateReceipt(receipt model.Receipt) error {
 	return nil
 }
 
-func (ru *receiptUsecase) GetCreateReceiptResult(receipt model.Receipt) (model.ReceiptResultResponse, error) {
+func (ru *receiptUsecase) GetCreateReceiptResult(username string) (model.ReceiptResultResponse, error) {
 	receipts := []model.Receipt{}
-	if err := ru.rr.GetReceiptByUsername(&receipts, receipt.Username); err != nil {
+	if err := ru.rr.GetReceiptByUsername(&receipts, username); err != nil {
 		return model.ReceiptResultResponse{}, err
 	}
 	rrr := model.ReceiptResultResponse{}
