@@ -8,3 +8,7 @@ type User struct {
 type UserRequest struct {
 	Username string `json:"username"`
 }
+
+type UserResponse struct {
+	Result bool `json:"result"`
+}
