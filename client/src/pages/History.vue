@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { checkCookie } from "../modules/module";
 
 const Router = useRouter();
 
@@ -13,6 +14,7 @@ const HistoryList = ref([
 ])
 
 onMounted(() => {
+    checkCookie();
     axios.get("api/history")
     .then((response) => {
         HistoryList.value = response.historylist;

@@ -2,12 +2,14 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { checkCookie } from '../modules/module';
 
 const Router = useRouter();
 
 const result = ref(10);
 
 onMounted(() => {
+    checkCookie();
     axios.get('api/receiptresult')
     .then((responce) => {
         result.value = responce;

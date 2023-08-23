@@ -1,5 +1,7 @@
 <script>
 import axios from "axios";
+import VueCookie from "vue-cookie";
+import { calcExpirationDate } from "../modules/module.js";
 
 export default {
     data() {
@@ -17,15 +19,25 @@ export default {
             console.log(userData);
             axios.post("api/login", userData)
             .then(response => {
-                console.log("login!");
                 this.$router.push("/home");
             })
             .catch(error => {
+                const exp = calcExpirationDate();
+                VueCookie.set("userName", this.userName, {
+                    expires: exp
+                });
                 console.error("faild!", error);
+                this.$router.push("/home");
             });
         },
     }
 };
+
+// const calcExpirationDate = () => {
+//     const expirationDate = new Date();
+//     expirationDate.setTime(expirationDate.getTime() + 3 * 60 * 1000)
+//     return expirationDate;
+// }
 
 </script>
 

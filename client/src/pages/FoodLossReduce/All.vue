@@ -2,12 +2,14 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import  axios  from 'axios';
+import { checkCookie } from '../../modules/module';
 
 const Router = useRouter();
 
 const AllReduce = ref(23456);
 
 onMounted(() => {
+    checkCookie();
     axios.get("api/foodlossreduce/all")
     .then((response) => {
         AllReduce.value = response;

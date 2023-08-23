@@ -2,12 +2,14 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { checkCookie } from '../../modules/module';
 
 const Router = useRouter();
 
 const ReduceScore = ref(1234);
 
 onMounted(() => {
+    checkCookie();
     axios.get("api/hoodlossreduce/person")
     .then(response => {
         ReduceScore.value = response;

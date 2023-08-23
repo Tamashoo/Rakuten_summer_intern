@@ -1,10 +1,15 @@
 <script setup>
 import axios from "axios";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { checkCookie } from "../modules/module";
 
 const Router = useRouter();
 const imageURL = ref("");
+
+onMounted(() => {
+    checkCookie();
+});
 
 const uploadReceipt = (e) => {
     const file = e.target.files[0];
