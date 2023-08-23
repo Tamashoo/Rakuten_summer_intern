@@ -41,20 +41,20 @@ const ClickedMenu = (targetIndex) => {
 </script>
 <template>
     <h1>HOME</h1>
-    <div class="flex justify-center border-4 border-[#bf0000] rounded-full bg-amber-100 mx-2">
-        <div class="w-16 h-16 border-4 border-amber-500 bg-white p-2 m-2 rounded-full font-bold drop-shadow text-center text-4xl text-[#bf0000]">{{ Level }}</div>
-        <p class="text-4xl m-auto text-center font-bold text-[#bf0000] drop-shadow">{{ 'Exp. ' + Exp }}</p>
+    <div class="flex justify-center border-4 border-rakuten rounded-full bg-amber-100 mx-2">
+        <div class="w-16 h-16 border-4 border-amber-500 bg-white p-2 m-2 rounded-full font-bold drop-shadow text-center text-4xl text-rakuten">{{ Level }}</div>
+        <p class="text-4xl m-auto text-center font-bold text-rakuten drop-shadow">{{ 'Exp. ' + Exp }}</p>
     </div>
     <div class="flex">
         <img :src="Character" class="w-80 h-80 mx-auto mt-6" />
     </div>
 
-        <button v-if="OpenMenuFlg==false" class="absolute inset-x-8 bottom-5 bg-[#bf0000]  p-3 rounded-full font-bold text-white" @click="OpenMenuFlg = !OpenMenuFlg">メニュー</button>
-    <div v-if="OpenMenuFlg" class="absolute z-0 inset-x-8 mx-auto bottom-5 text-2xl bg-white border border-[#bf0000] rounded-xl">
+        <button v-if="OpenMenuFlg==false" class="absolute inset-x-8 bottom-5 bg-rakuten  p-3 rounded-full font-bold text-white" @click="OpenMenuFlg = !OpenMenuFlg">メニュー</button>
+    <div v-if="OpenMenuFlg" class="absolute z-0 inset-x-8 mx-auto bottom-5 text-2xl bg-white border border-rakuten rounded-xl">
         <div v-for="(item, index) in MenuItems" :key="index">
             <div @click="ClickedMenu(index)" class="text-center border-b">{{ item.name }}</div>
         </div>
-        <div @click="OpenMenuFlg=false" class="text-center border-t border-[#bf0000]">閉じる</div>
+        <div @click="OpenMenuFlg=false" class="text-center border-t border-rakuten">閉じる</div>
     </div>
 </template>
 <style>
