@@ -21,7 +21,7 @@ func main() {
 	reduceUsecase := usecase.NewReduceUsecase(reduceRepository, allReduceRepository)
 	characterUsecase := usecase.NewCharacterUsecase(characterRepository)
 
-	userController := controller.NewUserController(userUsecase)
+	userController := controller.NewUserController(userUsecase, reduceUsecase)
 	receiptController := controller.NewReceiptController(receiptUsecase)
 	reduceController := controller.NewReduceController(reduceUsecase)
 	characterController := controller.NewCharacterController(characterUsecase, reduceUsecase)

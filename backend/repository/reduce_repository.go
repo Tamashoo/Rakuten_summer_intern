@@ -61,7 +61,7 @@ func (urr *userReduceRepository) UpdateUserReduce(userReduce *model.UserReduce) 
 }
 
 func (arr *allReduceRepository) GetAllReduce(allReduce *model.AllReduce) error {
-	if err := arr.db.Where("allreduceid = ?", 1).First(allReduce).Error; err != nil {
+	if err := arr.db.Where("all_reduce_id = ?", 1).First(allReduce).Error; err != nil {
 		return err
 	}
 	return nil
@@ -69,7 +69,7 @@ func (arr *allReduceRepository) GetAllReduce(allReduce *model.AllReduce) error {
 
 func (arr *allReduceRepository) UpdateAllReduce(allReduce *model.AllReduce) error {
 	// get 1 row 1 column
-	err := arr.db.Model(&allReduce).Where("allreduceid = ?", 1).Update("allreduce", allReduce.AllReduce)
+	err := arr.db.Model(&allReduce).Where("all_reduce_id = ?", 1).Update("all_reduce", allReduce.AllReduce)
 	if err != nil {
 		return err.Error
 	}

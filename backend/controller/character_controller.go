@@ -22,12 +22,13 @@ func NewCharacterController(cu usecase.ICharacterUsecase, ru usecase.IReduceUsec
 }
 
 func (cc *characterController) Home(c echo.Context) error {
-	cr := model.CharacterRequest{}
+	cookie, err := c.Cookie("username")
 	crRes := model.CharacterResponse{}
-	if err := c.Bind(&cr); err != nil {
-		return c.JSON(http.StatusBadRequest, crRes)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, crRes)
 	}
-	exp, err := cc.ru.GetUserReduceByUsername(cr.Username)
+	username := cookie.Value
+	exp, err := cc.ru.GetUserReduceByUsername(username)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, crRes)
 	}

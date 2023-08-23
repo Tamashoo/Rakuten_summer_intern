@@ -23,22 +23,28 @@ func NewReceiptController(ru usecase.IReceiptUsecase) IReceiptController {
 }
 
 func (rc *receiptController) GetReceipt(c echo.Context) error {
+	//cookie, err := c.Cookie("username")
+	//if err != nil {
+	//	return c.JSON(http.StatusInternalServerError, model.ReceiptResponse{})
+	//}
+	//username := cookie.Value
 	rr := model.ReceiptRequest{}
 	rrRes := model.ReceiptResponse{}
 	rrRes.Result = false
 	if err := c.Bind(&rr); err != nil {
 		return c.JSON(http.StatusBadRequest, rrRes)
 	}
-
+	return c.JSON(http.StatusOK, rrRes)
 }
 
 func (rc *receiptController) GetReceiptResult(c echo.Context) error {
-	ur := model.UserRequest{}
-	rrr := model.ReceiptResultResponse{}
-	if err := c.Bind(&ur); err != nil {
-		return c.JSON(http.StatusBadRequest, rrr)
+	cookie, err := c.Cookie("username")
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, model.ReceiptResultResponse{})
 	}
-	rrr, err := rc.ru.GetCreateReceiptResult(ur.Username)
+	username := cookie.Value
+	rrr := model.ReceiptResultResponse{}
+	rrr, err = rc.ru.GetCreateReceiptResult(username)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, rrr)
 	}
@@ -46,12 +52,13 @@ func (rc *receiptController) GetReceiptResult(c echo.Context) error {
 }
 
 func (rc *receiptController) GetHistory(c echo.Context) error {
-	ur := model.UserRequest{}
-	hlr := model.HistoryListResponse{}
-	if err := c.Bind(&ur); err != nil {
-		return c.JSON(http.StatusBadRequest, hlr)
+	cookie, err := c.Cookie("username")
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, model.HistoryListResponse{})
 	}
-	hlr, err := rc.ru.GetHistoryList(ur.Username)
+	username := cookie.Value
+	hlr := model.HistoryListResponse{}
+	hlr, err = rc.ru.GetHistoryList(username)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, hlr)
 	}

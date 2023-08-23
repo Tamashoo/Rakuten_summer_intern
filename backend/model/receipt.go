@@ -10,8 +10,7 @@ type Receipt struct {
 }
 
 type ReceiptRequest struct {
-	Username string `json:"username"`
-	Receipt  string `json:"receipt"`
+	Receipt string `json:"receipt"`
 }
 
 type ReceiptResponse struct {
