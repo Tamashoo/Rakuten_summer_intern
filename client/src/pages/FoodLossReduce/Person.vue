@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { checkCookie } from '../../modules/module';
+import HomeBtn  from "@/components/HomeBtn.vue";
 
 const Router = useRouter();
 
@@ -23,7 +24,7 @@ onMounted(() => {
 <template>
     <h1>あなたのフードロス削減度</h1>
     <div class="ReduceScore">{{ ReduceScore }}</div>
-    <button @click="Router.push('/home')" class="HomeBtn">ホーム画面に戻る</button>
+    <HomeBtn />
 </template>
 <style>
 .ReduceScore{

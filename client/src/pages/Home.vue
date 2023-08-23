@@ -49,7 +49,7 @@ const ClickedMenu = (targetIndex) => {
         <img :src="Character" class="w-80 h-80 mx-auto mt-6" />
     </div>
 
-        <button v-if="OpenMenuFlg==false" class="absolute inset-x-8 bottom-5 bg-rakuten  p-3 rounded-full font-bold text-white" @click="OpenMenuFlg = !OpenMenuFlg">メニュー</button>
+        <button v-if="OpenMenuFlg==false" class="absolute inset-x-8 bottom-5 bg-rakuten p-3 rounded-full font-bold text-white" @click="OpenMenuFlg = !OpenMenuFlg">メニュー</button>
     <div v-if="OpenMenuFlg" class="absolute z-0 inset-x-8 mx-auto bottom-5 text-2xl bg-white border border-rakuten rounded-xl">
         <div v-for="(item, index) in MenuItems" :key="index">
             <div @click="ClickedMenu(index)" class="text-center border-b">{{ item.name }}</div>
