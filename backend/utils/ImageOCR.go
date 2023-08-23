@@ -12,6 +12,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 
 	vision "cloud.google.com/go/vision/apiv1"
 	"cloud.google.com/go/vision/v2/apiv1/visionpb"
@@ -143,9 +144,9 @@ func calculatePoint(annotations []*EntityAnnotation, threshold float64) (int, in
 }
 
 // エンコード
-func encode(filename string) string {
+func encode(fileName string) string {
 
-	file, _ := os.Open(filename)
+	file, _ := os.Open(fileName)
 	defer file.Close()
 
 	fi, _ := file.Stat() //FileInfo interface
@@ -157,24 +158,41 @@ func encode(filename string) string {
 	return base64.StdEncoding.EncodeToString(data)
 }
 
-// デコード
+// デコードを行い　一時的に作業ディレクトリに再画像化したものを保存
 func decode(str string) string {
 	data, _ := base64.StdEncoding.DecodeString(str) //[]byte
+	currentDir, _ := os.Getwd()
+	decodePath := currentDir + "/decode" + timeToString(time.Now())[:11] + ".png" //画像保存用パス 実行時の時間を元に作成する
+	file, _ := os.Create(decodePath)
 
-	file, _ := os.Create("encode_and_decord.png")
-
-	decodepath := "encode_and_decord.png"
 	defer file.Close()
 
 	file.Write(data)
 
-	return decodepath
+	return decodePath
+}
+
+func timeToString(t time.Time) string { //時間を文字列に変換するための関数
+	str := t.Format("2006-01-02T15:04:05Z07:00")
+	return str
+}
+
+func removeFile(filePath string) bool { //画像ファイル消去 正しく消去できなかった場合に以降の処理が進まないように
+	r := os.Remove(filePath)
+	if r != nil {
+		fmt.Println("画像の保存に失敗しました")
+		return false
+	} else {
+		return true
+	}
 }
 
 func main() {
-	enc_data := encode("スクリーンショット 2023-08-22 113438.png")
-	decodepath := decode(enc_data)
-	// fmt.Println(decodepath)
-	annotations := ocr(decodepath)
-	fmt.Println(calculatePoint(annotations, 10))
+	encData := encode("/Users/Hiroki Yoshida/go test/スクリーンショット 2023-08-22 113438.png") //入力画像
+	decodePath := decode(encData)                                                      //base64でencodeされたデータに対してdecodeを行い結果を保存→ ファイルパスを返す
+	annotations := ocr(decodePath)
+	remove := removeFile(decodePath)
+	if remove {
+		fmt.Println(calculatePoint(annotations, 10))
+	}
 }
