@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { checkCookie } from '../modules/module';
+import HomeBtn  from "../components/HomeBtn.vue";
 
 const Router = useRouter();
 
@@ -27,7 +28,7 @@ onMounted(() => {
         <h2 class="font-bold text-2xl text-rakuten">獲得Exp</h2>
     <div class="text-9xl text-rakuten font-black m-10">{{ result }}</div>
     </div>
-    <button @click="Router.push('/home')" class="HomeBtn">ホーム画面に戻る</button>
+    <HomeBtn />
 </template>
 <style>
 .Result{
