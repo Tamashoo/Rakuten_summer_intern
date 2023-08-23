@@ -32,10 +32,18 @@ const MenuItems = ref([
     { name: 'みんなのフードロス貢献度', id: '/foodlossreduce/all'},
     { name: '履歴', id: '/history'},
     { name: 'レシート送信', id: '/receipt'},
+    { name: 'ログアウト', id: '/login'}
 ]);
 
 const ClickedMenu = (targetIndex) => {
+    if (MenuItems.value[targetIndex].id === "/login") {
+        deleteCookie();
+    }
     Router.push(MenuItems.value[targetIndex].id);
+}
+
+const deleteCookie = () => {
+    VueCookie.delete("userName");
 }
 
 </script>
