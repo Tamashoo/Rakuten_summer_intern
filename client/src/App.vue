@@ -9,9 +9,6 @@ const router = useRouter();
 
 <template>
   <header>
-    <div>
-      header
-    </div>
   </header>
 
   <main>
