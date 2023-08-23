@@ -3,6 +3,8 @@ import { ref, onMounted } from 'vue';
 import router from '../router';
 import { useRouter } from 'vue-router';
 import  axios  from 'axios';
+import VueCookie from "vue-cookie";
+import { checkCookie } from '../modules/module';
 
 //ダミーデータ
 const Character = ref('https://r.r10s.jp/evt/event/okaimonopanda/common/download/wallpaper_201501.png');
@@ -10,6 +12,7 @@ const Level = ref('3');
 const Exp = ref('3200');
 
 onMounted(() => {
+    checkCookie();
     //apiの処理
     axios.get("api/home")
     .then(function(responce) {
