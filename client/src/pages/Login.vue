@@ -47,7 +47,7 @@ const signup = () => {
 
 <template>
     <h1 class="text-2xl font-bold mt-4 text-center">Login Page</h1>
-    <div class="w-80 h-auto border-2 rounded-lg text-xl login mx-auto mt-4 text-left flex justify-center">
+    <div class="border-[#bf0000] w-80 h-auto border-2 rounded-lg text-xl login mx-auto mt-4 text-left flex justify-center">
         <div class="w-auto place-content-center h-auto">
             <form @submit.prevent="login">
                 <div class="userName mb-3 mx-auto">
@@ -60,13 +60,14 @@ const signup = () => {
                 </div>
                 <p v-if="wrongFlag === true" class="text-red-600 text-xs">ユーザ名またはパスワードが間違っています</p>
                 <div class="flex justify-end">
-                    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded-lg mb-4 mt-4 float">login</button>
+                    <!-- <button class="border-[#bf0000] bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded-lg mb-4 mt-4 float">login</button> -->
+                    <button class="border-[#bf0000] bg-transparent hover:bg-[#bf0000] text-[#bf0000] font-semibold hover:text-white py-2 px-4 border hover:border-transparent rounded-lg mb-4 mt-4 float">login</button>
                 </div>
             </form>
         </div>
     </div>
     <div class="flex justify-end mr-4 mt-4">
-        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg" @click="signup()">signup</button>
+        <button class="border-[#bf0000] bg-transparent hover:bg-[#bf0000] text-[#bf0000] font-semibold hover:text-white py-2 px-4 border hover:border-transparent rounded-lg mb-4 mt-4 float" @click="signup()">signup</button>
     </div>
 </template>
 
