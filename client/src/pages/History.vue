@@ -7,12 +7,7 @@ import HomeBtn  from "@/components/HomeBtn.vue";
 
 const Router = useRouter();
 
-const HistoryList = ref([
-    { "createdat": 20230820, "getexp": 100 },
-    { "createdat": 20230821, "getexp": 120 },
-    { "createdat": 20230822, "getexp": 130 },
-    { "createdat": 20230823, "getexp": 140 },
-])
+const HistoryList = ref("")
 
 onMounted(() => {
     checkCookie();
@@ -21,13 +16,19 @@ onMounted(() => {
     };
     axios.post("http://13.211.209.41:8080/history", userData)
     .then((response) => {
-        console.log(response.data)
+        formatCreatedAt(response.data.historylist);
         HistoryList.value = response.data.historylist;
     })
     .catch((error) => {
         console.log(error);
     })
 });
+
+const formatCreatedAt = (list) => {
+    for (let i = 0; i < list.length; i ++) {
+        list[i].createdat = list[i].createdat.slice(0,10);
+    }
+}
 </script>
 
 <template>
