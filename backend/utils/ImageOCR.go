@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"bufio"
@@ -26,22 +26,26 @@ func ocr(filepath string) []*EntityAnnotation {
 	// Creates a client.
 	client, err := vision.NewImageAnnotatorClient(ctx)
 	if err != nil {
-		log.Fatalf("Failed to create client: %v", err)
+		log.Printf("Failed to create client: %v", err)
+		return nil
 	}
 	defer client.Close()
 
 	file, err := os.Open(filepath)
 	if err != nil {
-		log.Fatalf("Failed to read file: %v", err)
+		log.Printf("Failed to read file: %v", err)
+		return nil
 	}
 	defer file.Close()
 	image, err := vision.NewImageFromReader(file)
 	if err != nil {
-		log.Fatalf("Failed to create image: %v", err)
+		log.Printf("Failed to create image: %v", err)
+		return nil
 	}
 	annotations, err := client.DetectTexts(ctx, image, nil, 5)
 	if err != nil {
-		log.Fatalf("Failed to detect texts: %v", err)
+		log.Printf("Failed to detect texts: %v", err)
+		return nil
 	}
 
 	// 最初は全体をテキストにした結果が入るので飛ばす
@@ -131,7 +135,7 @@ func calculatePoint(annotations []*EntityAnnotation, threshold float64) (int, in
 					underXPosition := underAnnotation.BoundingPoly.Vertices[0].X
 					listPrice, err := strconv.Atoi(underAnnotation.Description)
 					if err == nil && listPrice > discountValue && math.Abs(float64(underXPosition-xPosition)) < threshold {
-						fmt.Println(listPrice, discountValue)
+						//fmt.Println(listPrice, discountValue)
 						discountRate := 100 * discountValue / listPrice
 						pts += discountRate
 						break
@@ -185,6 +189,20 @@ func removeFile(filePath string) bool { //画像ファイル消去 正しく消�
 	} else {
 		return true
 	}
+}
+
+func ForCharacterController(receipt string) (int, int, error) {
+	decodePath := decode(receipt)
+	annotations := ocr(decodePath)
+	if annotations == nil {
+		return 0, 0, fmt.Errorf("failed to ocr")
+	}
+	remove := removeFile(decodePath)
+	if remove {
+		exp, cnt := calculatePoint(annotations, 10)
+		return exp, cnt, nil
+	}
+	return 0, 0, fmt.Errorf("failed to calculate point")
 }
 
 func main() {
