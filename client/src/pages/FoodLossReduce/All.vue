@@ -7,7 +7,7 @@ import HomeBtn  from "@/components/HomeBtn.vue";
 
 const Router = useRouter();
 
-const AllReduce = ref(2345678);
+const AllReduce = ref();
 
 onMounted(() => {
     checkCookie();
