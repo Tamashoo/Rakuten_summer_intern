@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import  axios  from 'axios';
-import { checkCookie } from '../../modules/module';
+import { checkCookie, getCookie } from '../../modules/module';
 import HomeBtn  from "@/components/HomeBtn.vue";
 
 const Router = useRouter();
@@ -11,8 +11,12 @@ const AllReduce = ref(2345678);
 
 onMounted(() => {
     checkCookie();
-    axios.get("api/foodlossreduce/all")
+    const userData = {
+        username: getCookie(),
+    }
+    axios.post("http://13.211.209.41:8080/foodlossreduce/all", userData)
     .then((response) => {
+        console.log(response);
         AllReduce.value = response;
     })
     .catch((error) => {

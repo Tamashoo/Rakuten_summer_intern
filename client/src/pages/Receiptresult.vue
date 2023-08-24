@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
-import { checkCookie } from '../modules/module';
+import { checkCookie, getCookie } from '../modules/module';
 import HomeBtn  from "../components/HomeBtn.vue";
 
 const Router = useRouter();
@@ -11,9 +11,13 @@ const result = ref(10);
 
 onMounted(() => {
     checkCookie();
-    axios.get('api/receiptresult')
-    .then((responce) => {
-        result.value = responce;
+    const userData = {
+        username: getCookie(),
+    };
+    axios.post('http://13.211.209.41:8080/receiptresult', userData)
+    .then((response) => {
+        console.log(response)
+        result.value = response;
     })
     .catch(error => {
         console.log(error);

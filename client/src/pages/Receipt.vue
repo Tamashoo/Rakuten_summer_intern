@@ -2,12 +2,13 @@
 import axios from "axios";
 import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
-import { checkCookie } from "../modules/module";
+import { checkCookie, getCookie } from "../modules/module";
 import HomeBtn  from "../components/HomeBtn.vue";
 
 const Router = useRouter();
 const imageURL = ref("");
 const FileName = ref('');
+const submitFlag = ref("");
 
 onMounted(() => {
     checkCookie();
@@ -24,11 +25,16 @@ const submitReceipt = () => {
         alert("ファイルを選択してください。");
     } else {
         const data = {
-            image: imageURL.value
-        }
-        axios.post("api/receipt", data)
+            username: getCookie(),
+            receipt: imageURL.value,
+        };
+        axios.post("http://13.211.209.41:8080/receipt", data)
             .then(response => {
-                Router.push("/receiptresult")
+                if (response.data.result === true) {
+                    Router.push("/receiptresult")
+                } else {
+                    submitFlag.value = true;
+                } 
             })
             .catch(error => {
                 console.error("faild!", error);
@@ -54,6 +60,7 @@ const createImage = (file) => {
             <input class="hidden" ref="file" type="file" id="file" accept=".png, .jpg, jpeg" @change="uploadReceipt">
         </label>
     </div>
+    <p v-if="submitFlag === true">レシートを認識できませんでした</p>
     <div class=" relative mt-24 mb-6 mx-auto text-center w-60 h-96 bg-amber-100">
         <h2>プレビュー</h2>
         <div v-if="imageURL" >

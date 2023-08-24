@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import axios from 'axios';
 import { useRouter } from 'vue-router';
-import { checkCookie } from "../modules/module";
+import { checkCookie, getCookie } from "../modules/module";
 import HomeBtn  from "@/components/HomeBtn.vue";
 
 const Router = useRouter();
@@ -16,8 +16,12 @@ const HistoryList = ref([
 
 onMounted(() => {
     checkCookie();
-    axios.get("api/history")
+    const userData = {
+        username: getCookie(),
+    };
+    axios.post("http://13.211.209.41:8080/history", userData)
     .then((response) => {
+        console.log(response);
         HistoryList.value = response.historylist;
     })
     .catch((error) => {
