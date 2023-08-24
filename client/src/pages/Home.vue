@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 import router from '../router';
 import { useRouter } from 'vue-router';
 import  axios  from 'axios';
@@ -10,6 +10,7 @@ import { checkCookie, getCookie } from '../modules/module';
 const Character = ref('');
 const Level = ref('');
 const Exp = ref('');
+
 
 onMounted(() => {
     checkCookie();
@@ -58,7 +59,7 @@ const deleteCookie = () => {
         <div class="w-16 h-16 border-4 border-amber-500 bg-white p-2 m-2 rounded-full font-bold drop-shadow text-center text-4xl text-rakuten">{{ Level }}</div>
         <p class="text-4xl m-auto text-center font-bold text-rakuten drop-shadow">{{ 'Exp. ' + Exp }}</p>
     </div>
-    <div class="flex">
+    <div v-if="Character" class="flex">
         <img :src="Character" class="w-80 h-80 mx-auto mt-6" />
     </div>
 
