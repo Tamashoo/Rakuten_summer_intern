@@ -21,8 +21,8 @@ onMounted(() => {
     };
     axios.post("http://13.211.209.41:8080/history", userData)
     .then((response) => {
-        console.log(response);
-        HistoryList.value = response.historylist;
+        console.log(response.data)
+        HistoryList.value = response.data.historylist;
     })
     .catch((error) => {
         console.log(error);

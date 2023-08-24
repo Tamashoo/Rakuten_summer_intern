@@ -24,9 +24,10 @@ const submitReceipt = () => {
     if (imageURL.value === "") {
         alert("ファイルを選択してください。");
     } else {
+
         const data = {
             username: getCookie(),
-            receipt: imageURL.value,
+            receipt: cleanedString(imageURL.value),
         };
         axios.post("http://13.211.209.41:8080/receipt", data)
             .then(response => {
@@ -50,6 +51,10 @@ const createImage = (file) => {
         imageURL.value = reader.result;
     }
 };
+
+const cleanedString = (base64String) => {
+    return base64String.replace(/^data:image\/(png|jpeg|jpg);base64,/,"")
+}
 
 </script>
 <template>

@@ -7,9 +7,9 @@ import VueCookie from "vue-cookie";
 import { checkCookie, getCookie } from '../modules/module';
 
 //ダミーデータ
-const Character = ref('https://r.r10s.jp/evt/event/okaimonopanda/common/download/wallpaper_201501.png');
-const Level = ref('3');
-const Exp = ref('3200');
+const Character = ref('');
+const Level = ref('');
+const Exp = ref('');
 
 onMounted(() => {
     checkCookie();
@@ -19,8 +19,9 @@ onMounted(() => {
     };
     axios.post("http://13.211.209.41:8080/home", userData)
         .then(response => {
-            console.log(response);
-            CharacterData.value = response;
+            Character.value = "data:image/gif;base64," + response.data.character;
+            Level.value = response.data.level
+            Exp.value = response.data.exp;
         })
         .catch(error => {
             console.log("faild", error);
