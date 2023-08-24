@@ -7,7 +7,7 @@ import HomeBtn  from "@/components/HomeBtn.vue";
 
 const Router = useRouter();
 
-const AllReduce = ref(23456);
+const AllReduce = ref(2345678);
 
 onMounted(() => {
     checkCookie();
@@ -24,7 +24,7 @@ onMounted(() => {
 <template>
     <h1>みんなのフードロス削減度</h1>
     <div class="rounded-full border-4 border-rakuten bg-amber-100 w-80 h-80 relative mx-auto mt-6">
-        <div class="text-8xl font-black text-center text-rakuten mt-24">{{ AllReduce }}</div>
+        <div class="text-7xl font-black text-center text-rakuten mt-28">{{ AllReduce }}</div>
     </div>
     <HomeBtn />
 </template>
