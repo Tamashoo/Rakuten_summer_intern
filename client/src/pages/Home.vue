@@ -5,20 +5,20 @@ import { useRouter } from 'vue-router';
 import  axios  from 'axios';
 import VueCookie from "vue-cookie";
 import { checkCookie, getCookie } from '../modules/module';
+import LoadingAnime from '@/components/LoadingAnime.vue';
 
 //ダミーデータ
 const Character = ref('');
 const Level = ref('');
 const Exp = ref('');
 
+const LoadingFlg = ref(true);
 
-onMounted(() => {
-    checkCookie();
-    //apiの処理
+const GetData = async () => {
     const userData = {
         username: getCookie(),
     };
-    axios.post("http://13.211.209.41:8080/home", userData)
+    await axios.post("http://13.211.209.41:8080/home", userData)
         .then(response => {
             Character.value = "data:image/gif;base64," + response.data.character;
             Level.value = response.data.level
@@ -27,6 +27,13 @@ onMounted(() => {
         .catch(error => {
             console.log("faild", error);
         });
+    LoadingFlg.value = false;
+};
+
+onMounted(() => {
+    checkCookie();
+    //apiの処理
+    GetData();
 });
 
 const Router = useRouter();
@@ -70,6 +77,7 @@ const deleteCookie = () => {
         </div>
         <div @click="OpenMenuFlg=false" class="text-center border-t border-rakuten">閉じる</div>
     </div>
+    <LoadingAnime v-show="LoadingFlg" />
 </template>
 <style>
 .menubtn{
