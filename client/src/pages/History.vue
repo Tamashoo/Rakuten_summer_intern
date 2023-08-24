@@ -28,17 +28,17 @@ onMounted(() => {
 
 <template>
     <h1>履歴</h1>
-    <table>
+    <table class="relative mx-auto border-4 border-rakuten mt-6">
         <thead>
-            <tr>
-                <th>日付</th>
+            <tr class="font-bold text-4xl bg-amber-200 text-center">
+                <th class="">日付</th>
                 <th>獲得Exp</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(item, index) in HistoryList" :key="index">
-                <td>{{ item.createdat }}</td>
-                <td>{{ item.getexp }}</td>
+            <tr v-for="(item, index) in HistoryList" :key="index " class="text-3xl font-medium">
+                <td class="text-left" :class="[(index%2)==0?'bg-orange-100':'bg-amber-100']">{{ item.createdat }}</td>
+                <td class="text-right" :class="[(index%2)==0?'bg-orange-50':'bg-amber-50']">{{ item.getexp }}</td>
             </tr>
         </tbody>
     </table>
@@ -46,16 +46,4 @@ onMounted(() => {
 </template>
 
 <style>
-table,
-td {
-    border: 1px solid #333;
-}
-
-th {
-    border: 1px solid #333;
-}
-.HomeBtn{
-    position: absolute;
-    bottom: 20px;
-}
 </style>
