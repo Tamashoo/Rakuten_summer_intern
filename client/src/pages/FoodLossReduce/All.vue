@@ -16,8 +16,7 @@ onMounted(() => {
     }
     axios.post("http://13.211.209.41:8080/foodlossreduce/all", userData)
     .then((response) => {
-        console.log(response);
-        AllReduce.value = response;
+        AllReduce.value = response.data.allreduce;
     })
     .catch((error) => {
         console.log(error);

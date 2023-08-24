@@ -16,8 +16,8 @@ onMounted(() => {
     };
     axios.post('http://13.211.209.41:8080/receiptresult', userData)
     .then((response) => {
-        console.log(response)
-        result.value = response;
+        console.log(response.data.getexp)
+        result.value = response.data.getexp;
     })
     .catch(error => {
         console.log(error);
