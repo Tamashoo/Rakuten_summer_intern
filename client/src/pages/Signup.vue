@@ -15,12 +15,12 @@ const register = () => {
     //登録する処理
     if (checkPassword() === true) {
         const userData = {
-            userName: userName.value,
-            password: password.value,
+            username: Name.value,
+            password: Password1.value,
         }
-        axios.post("/api/signup", userData)
+        axios.post("http://13.211.209.41:8080/signup", userData)
             .then(response => {
-                if (response === true) {
+                if (response.data.result === true) {
                     Router.push('/login');
                 } else {
                     userNameFlag.value = true;
@@ -30,7 +30,7 @@ const register = () => {
                 console.error("faild!", error);
             });
         // この下の処理は後に消す
-        Router.push("/login");
+        // Router.push("/login");
     } else {
         passwordFlag.value = true;
     }

@@ -4,7 +4,7 @@ import router from '../router';
 import { useRouter } from 'vue-router';
 import  axios  from 'axios';
 import VueCookie from "vue-cookie";
-import { checkCookie } from '../modules/module';
+import { checkCookie, getCookie } from '../modules/module';
 
 //ダミーデータ
 const Character = ref('https://r.r10s.jp/evt/event/okaimonopanda/common/download/wallpaper_201501.png');
@@ -14,13 +14,17 @@ const Exp = ref('3200');
 onMounted(() => {
     checkCookie();
     //apiの処理
-    axios.get("api/home")
-    .then(function(responce) {
-        CharacterData.value = responce;
-    })
-    .catch(error => {
-        console.log("faild", error);
-    })
+    const userData = {
+        username: getCookie(),
+    };
+    axios.post("http://13.211.209.41:8080/home", userData)
+        .then(response => {
+            console.log(response);
+            CharacterData.value = response;
+        })
+        .catch(error => {
+            console.log("faild", error);
+        });
 });
 
 const Router = useRouter();

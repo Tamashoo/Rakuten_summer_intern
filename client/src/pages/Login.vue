@@ -13,12 +13,12 @@ const wrongFlag = ref("");
 
 const login = () => {
     const userData = {
-        userName: userName.value,
+        username: userName.value,
         password: password.value,
     }
-    axios.post("/api/login", userData)
+    axios.post("http://13.211.209.41:8080/login", userData)
         .then(response => {
-            if (response === true) {
+            if (response.data.result === true) {
                 const exp = calcExpirationDate();
                 VueCookie.set("userName", userName.value, {
                     expires: exp
@@ -29,14 +29,15 @@ const login = () => {
             }
         })
         .catch(error => {
+            console.log("送れない");
             console.error("faild!", error);
         });
     // この下の処理は後に消す
-    const exp = calcExpirationDate();
-    VueCookie.set("userName", userName.value, {
-        expires: exp
-    });
-    Router.push("/home");
+    // const exp = calcExpirationDate();
+    // VueCookie.set("userName", userName.value, {
+    //     expires: exp
+    // });
+    // Router.push("/home");
 }
 
 const signup = () => {

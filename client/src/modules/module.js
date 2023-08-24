@@ -19,3 +19,7 @@ export function calcExpirationDate() {
     expirationDate.setTime(expirationDate.getTime() + 3 * 60 * 1000)
     return expirationDate;
 }
+
+export function getCookie() {
+    return VueCookie.get("userName");
+}
