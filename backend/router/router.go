@@ -15,11 +15,11 @@ func NewRouter(uc controller.IUserController, rcc controller.IReceiptController,
 	e.POST("/signup", uc.SignUp)
 	e.POST("/login", uc.Login)
 	e.POST("/logout", uc.LogOut)
-	e.GET("/home", cc.Home)
+	e.POST("/home", cc.Home)
 	e.POST("/receipt", rcc.GetReceipt)
-	e.GET("/receiptresult", rcc.GetReceiptResult)
-	e.GET("/history", rcc.GetHistory)
-	e.GET("/foodlossreduce/person", rdc.GetUserReduce)
-	e.GET("/foodlossreduce/all", rdc.GetAllReduce)
+	e.POST("/receiptresult", rcc.GetReceiptResult)
+	e.POST("/history", rcc.GetHistory)
+	e.POST("/foodlossreduce/person", rdc.GetUserReduce)
+	e.POST("/foodlossreduce/all", rdc.GetAllReduce)
 	return e
 }

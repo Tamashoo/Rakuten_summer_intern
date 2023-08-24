@@ -22,18 +22,17 @@ func NewCharacterController(cu usecase.ICharacterUsecase, ru usecase.IReduceUsec
 }
 
 func (cc *characterController) Home(c echo.Context) error {
-	cookie, err := c.Cookie("username")
+	cr := model.CharacterRequest{}
+	if err := c.Bind(&cr); err != nil {
+		return c.JSON(http.StatusBadRequest, model.CharacterResponse{})
+	}
 	crRes := model.CharacterResponse{}
+	username := cr.Username
+	exp, err := cc.ru.GetUserExpByUsername(username)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, crRes)
 	}
-	username := cookie.Value
-	exp, err := cc.ru.GetUserReduceByUsername(username)
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, crRes)
-	}
-	level := 0       // temporary
-	exp = exp % 1000 // temporary
+	level := 0 // temporary
 	if exp/1000+1 > 4 {
 		level = 4
 	} else {
@@ -41,6 +40,7 @@ func (cc *characterController) Home(c echo.Context) error {
 	}
 	character, err := cc.cu.GetCharacterByLevel(level)
 	level = exp/1000 + 1
+	exp = exp % 1000
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, crRes)
 	}
