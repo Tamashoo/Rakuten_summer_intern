@@ -3,7 +3,9 @@ h1{
     text-align: center;
     font-weight: 900;
     font-size: 50px;
+    background: linear-gradient(#fdba74, white,  #3b82f6);
+    padding: 2rem;
 }
-body{
-    background-color: #f0ffff;
+html{
+    background-color: whitesmoke;
 }

@@ -49,7 +49,7 @@ const deleteCookie = () => {
 </script>
 <template>
     <h1>HOME</h1>
-    <div class="flex justify-center border-4 border-rakuten rounded-full bg-amber-100 mx-2">
+    <div class="flex justify-center border-4 border-rakuten rounded-full bg-gradient-to-bl from-amber-200 via-amber-50 to-amber-200 mx-2 mt-4">
         <div class="w-16 h-16 border-4 border-amber-500 bg-white p-2 m-2 rounded-full font-bold drop-shadow text-center text-4xl text-rakuten">{{ Level }}</div>
         <p class="text-4xl m-auto text-center font-bold text-rakuten drop-shadow">{{ 'Exp. ' + Exp }}</p>
     </div>
