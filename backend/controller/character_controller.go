@@ -40,6 +40,7 @@ func (cc *characterController) Home(c echo.Context) error {
 		level = exp/1000 + 1
 	}
 	character, err := cc.cu.GetCharacterByLevel(level)
+	level = exp/1000 + 1
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, crRes)
 	}
