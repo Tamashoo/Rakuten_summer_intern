@@ -23,16 +23,10 @@ onMounted(() => {
 </script>
 <template>
     <h1>あなたのフードロス削減度</h1>
-    <div class="ReduceScore">{{ ReduceScore }}</div>
+    <div class="rounded-full border-4 border-rakuten bg-amber-100 w-80 h-80 relative mx-auto my-6">
+        <div class="text-8xl font-black text-center text-rakuten mt-24">{{ ReduceScore }}</div>
+    </div>
     <HomeBtn />
 </template>
 <style>
-.ReduceScore{
-    text-align: center;
-    font-size: 100px;
-}
-.HomeBtn{
-    position: absolute;
-    bottom: 20px;
-}
 </style>
