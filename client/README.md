@@ -27,3 +27,14 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Start web server
+```sh
+npm run start
+```
+before do this, you should `npm run build`
+
+### Stop web server
+```sh
+npm run stop
+```
