@@ -49,7 +49,7 @@ const checkPassword = () => {
 
 </script>
 <template>
-    <h1 class="text-2xl font-bold mt-4 text-center">Signup Page</h1>
+    <h1>Signup Page</h1>
     <div class="border-[#bf0000] w-80 h-auto border-2 rounded-lg text-xl login mx-auto mt-4 text-left flex justify-center">
         <div class="w-auto place-content-center h-auto">
             <form @submit.prevent="register">
