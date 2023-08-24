@@ -4,11 +4,13 @@ import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 import { checkCookie, getCookie } from "../modules/module";
 import HomeBtn  from "../components/HomeBtn.vue";
+import LoadingAnime from '@/components/LoadingAnime.vue';
 
 const Router = useRouter();
 const imageURL = ref("");
 const FileName = ref('');
 const submitFlag = ref("");
+const LoadingFlg = ref(false);
 
 onMounted(() => {
     checkCookie();
@@ -20,16 +22,16 @@ const uploadReceipt = (e) => {
     createImage(file);
 }
 
-const submitReceipt = () => {
+const submitReceipt = async () => {
     if (imageURL.value === "") {
         alert("ファイルを選択してください。");
     } else {
-
+        LoadingFlg.value = true;
         const data = {
             username: getCookie(),
             receipt: cleanedString(imageURL.value),
         };
-        axios.post("http://13.211.209.41:8080/receipt", data)
+        await axios.post("http://13.211.209.41:8080/receipt", data)
             .then(response => {
                 if (response.data.result === true) {
                     Router.push("/receiptresult")
@@ -40,6 +42,7 @@ const submitReceipt = () => {
             .catch(error => {
                 console.error("faild!", error);
             })
+        LoadingFlg.value = false;
     }
 };
 
@@ -75,6 +78,7 @@ const cleanedString = (base64String) => {
     </div>
     <button class="rounded-full bg-rakuten text-2xl text-white absolute inset-x-8 font-medium my-5 p-3" @click="submitReceipt()">送信する</button>
     <HomeBtn />
+    <LoadingAnime v-show="LoadingFlg" />
 </template>
 <style>
 </style>
