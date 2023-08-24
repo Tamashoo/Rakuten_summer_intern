@@ -23,7 +23,9 @@ onMounted(() => {
 </script>
 <template>
     <h1>みんなのフードロス削減度</h1>
-    <div class="AllReduce">{{ AllReduce }}</div>
+    <div class="rounded-full border-4 border-rakuten bg-amber-100 w-80 h-80 relative mx-auto mt-6">
+        <div class="text-8xl font-black text-center text-rakuten mt-24">{{ AllReduce }}</div>
+    </div>
     <HomeBtn />
 </template>
 <style>
