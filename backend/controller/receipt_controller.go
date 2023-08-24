@@ -26,17 +26,14 @@ func NewReceiptController(ru usecase.IReceiptUsecase, rdu usecase.IReduceUsecase
 }
 
 func (rc *receiptController) GetReceipt(c echo.Context) error {
-	cookie, err := c.Cookie("username")
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, model.ReceiptResponse{})
-	}
-	username := cookie.Value
+	username := ""
 	rr := model.ReceiptRequest{}
 	rrRes := model.ReceiptResponse{}
 	rrRes.Result = false
 	if err := c.Bind(&rr); err != nil {
 		return c.JSON(http.StatusBadRequest, rrRes)
 	}
+	username = rr.Username
 
 	exp, cnt, err := utils.ForCharacterController(rr.Receipt)
 	if err != nil {
@@ -65,13 +62,13 @@ func (rc *receiptController) GetReceipt(c echo.Context) error {
 }
 
 func (rc *receiptController) GetReceiptResult(c echo.Context) error {
-	cookie, err := c.Cookie("username")
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, model.ReceiptResultResponse{})
+	ur := model.UserRequest{}
+	if err := c.Bind(&ur); err != nil {
+		return c.JSON(http.StatusBadRequest, model.ReceiptResultResponse{})
 	}
-	username := cookie.Value
+	username := ur.Username
 	rrr := model.ReceiptResultResponse{}
-	rrr, err = rc.ru.GetCreateReceiptResult(username)
+	rrr, err := rc.ru.GetCreateReceiptResult(username)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, rrr)
 	}
@@ -79,13 +76,13 @@ func (rc *receiptController) GetReceiptResult(c echo.Context) error {
 }
 
 func (rc *receiptController) GetHistory(c echo.Context) error {
-	cookie, err := c.Cookie("username")
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, model.HistoryListResponse{})
+	ur := model.UserRequest{}
+	if err := c.Bind(&ur); err != nil {
+		return c.JSON(http.StatusBadRequest, model.HistoryListResponse{})
 	}
-	username := cookie.Value
+	username := ur.Username
 	hlr := model.HistoryListResponse{}
-	hlr, err = rc.ru.GetHistoryList(username)
+	hlr, err := rc.ru.GetHistoryList(username)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, hlr)
 	}

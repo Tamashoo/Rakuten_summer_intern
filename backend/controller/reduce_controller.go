@@ -22,11 +22,11 @@ func NewReduceController(ru usecase.IReduceUsecase) IReduceController {
 }
 
 func (rc *reduceController) GetUserReduce(c echo.Context) error {
-	cookie, err := c.Cookie("username")
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, model.UserReduceResponse{})
+	ur := model.UserReduceRequest{}
+	if err := c.Bind(&ur); err != nil {
+		return c.JSON(http.StatusBadRequest, model.UserReduceResponse{})
 	}
-	username := cookie.Value
+	username := ur.Username
 	urrRes := model.UserReduceResponse{}
 	score, err := rc.ru.GetUserReduceByUsername(username)
 	if err != nil {
