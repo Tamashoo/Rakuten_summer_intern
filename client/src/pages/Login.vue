@@ -29,17 +29,10 @@ const login = () => {
             }
         })
         .catch(error => {
-            console.log("送れない");
+            wrongFlag.value = true;
             console.error("faild!", error);
         });
-    // この下の処理は後に消す
-    // const exp = calcExpirationDate();
-    // VueCookie.set("userName", userName.value, {
-    //     expires: exp
-    // });
-    // Router.push("/home");
 }
-
 const signup = () => {
     Router.push("/signup");
 }

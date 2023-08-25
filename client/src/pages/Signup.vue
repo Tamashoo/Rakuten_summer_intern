@@ -26,11 +26,10 @@ const register = () => {
                     userNameFlag.value = true;
                 }
             })
-            .catch(error => {
+            .catch(error => { 
+                userNameFlag.value = true;
                 console.error("faild!", error);
             });
-        // この下の処理は後に消す
-        // Router.push("/login");
     } else {
         passwordFlag.value = true;
     }
