@@ -14,7 +14,7 @@ onMounted(() => {
     const userData = {
         username: getCookie(),
     };
-    axios.post('http://13.211.209.41:8080/receiptresult', userData)
+    axios.post('http://3.27.122.207:8080/receiptresult', userData)
     .then((response) => {
         console.log(response.data.getexp)
         result.value = response.data.getexp;

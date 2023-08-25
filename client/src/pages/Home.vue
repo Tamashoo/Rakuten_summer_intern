@@ -18,7 +18,7 @@ const GetData = async () => {
     const userData = {
         username: getCookie(),
     };
-    await axios.post("http://13.211.209.41:8080/home", userData)
+    await axios.post("http://3.27.122.207:8080/home", userData)
         .then(response => {
             Character.value = "data:image/gif;base64," + response.data.character;
             Level.value = response.data.level

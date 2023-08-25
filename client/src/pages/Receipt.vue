@@ -31,7 +31,7 @@ const submitReceipt = async () => {
             username: getCookie(),
             receipt: cleanedString(imageURL.value),
         };
-        await axios.post("http://13.211.209.41:8080/receipt", data)
+        await axios.post("http://3.27.122.207:8080/receipt", data)
             .then(response => {
                 if (response.data.result === true) {
                     Router.push("/receiptresult")

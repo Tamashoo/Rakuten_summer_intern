@@ -18,7 +18,7 @@ const register = () => {
             username: Name.value,
             password: Password1.value,
         }
-        axios.post("http://13.211.209.41:8080/signup", userData)
+        axios.post("http://3.27.122.207:8080/signup", userData)
             .then(response => {
                 if (response.data.result === true) {
                     Router.push('/login');
