@@ -14,7 +14,7 @@ onMounted(() => {
     const userData = {
         username: getCookie(),
     };
-    axios.post("http://13.211.209.41:8080/history", userData)
+    axios.post("http://3.27.122.207:8080/history", userData)
     .then((response) => {
         formatCreatedAt(response.data.historylist);
         HistoryList.value = response.data.historylist;

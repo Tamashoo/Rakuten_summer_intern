@@ -16,7 +16,7 @@ const login = () => {
         username: userName.value,
         password: password.value,
     }
-    axios.post("http://13.211.209.41:8080/login", userData)
+    axios.post("http://3.27.122.207:8080/login", userData)
         .then(response => {
             if (response.data.result === true) {
                 const exp = calcExpirationDate();
